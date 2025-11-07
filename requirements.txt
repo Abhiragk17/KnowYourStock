@@ -11,3 +11,4 @@ requests
 python-dotenv
 fastapi
 tavily-python
+uvicorn
