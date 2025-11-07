@@ -1,7 +1,6 @@
 from langchain_core.prompts import ChatPromptTemplate
 #from langchain.output_parsers import StructuredOutputParser, ResponseSchema
 from langchain_core.output_parsers import PydanticOutputParser
-from langchain.chains import LLMChain
 from dotenv import load_dotenv
 from config import GEMINI_LLM as llm
 import sys
