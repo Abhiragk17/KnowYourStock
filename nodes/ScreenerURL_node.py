@@ -1,6 +1,7 @@
 from langchain_core.prompts import ChatPromptTemplate
 from config import GEMINI_LLM as llm
-from langchain.output_parsers.structured import StructuredOutputParser, ResponseSchema
+from langchain_core.output_parsers import PydanticOutputParser
+from pydantic import BaseModel, Field
 
 import sys
 from pathlib import Path
@@ -10,13 +11,13 @@ sys.path.append(str(BASE_DIR))
 
 from Models import State
 
+class llmschema(BaseModel):
+    ticker_symbol: str = Field(..., description="The official ticker symbol for the given stock")
+
 def get_screener_url_and_ticker_symbol(state: State) -> State:
     try:
-        response_schemas = [
-            ResponseSchema(name="ticker_symbol", description="The official ticker symbol for the given stock"),
-        ]
 
-        parser = StructuredOutputParser.from_response_schemas(response_schemas)
+        parser = PydanticOutputParser.from_response_schemas(llmschema)
         format_instructions = parser.get_format_instructions()
 
         prompt_template = ChatPromptTemplate(
@@ -32,7 +33,7 @@ def get_screener_url_and_ticker_symbol(state: State) -> State:
         prompt_template = prompt_template.partial(format_instructions=format_instructions)
         chain = prompt_template | llm | parser
         response = chain.invoke(input={"stock_name": state.User_stock_name})
-        ticker_symbol = response['ticker_symbol']
+        ticker_symbol = response.ticker_symbol
         screener_url = f"https://www.screener.in/company/{ticker_symbol}/consolidated/"
         state.ScreenerURL = screener_url
         state.TickerSymbol = ticker_symbol
