@@ -29,6 +29,9 @@ class ChatRequest(BaseModel):
     context: Optional[Dict[str, Any]] = None
     messages: Optional[List[Dict[str, str]]] = None  # Previous conversation history (role/content dicts)
 
+@app.get("/health")
+def health_check():
+    return {"status": "ok"}
 
 @app.post("/langgraph")
 async def run_langgraph(req: LanggraphRequest):
