@@ -17,7 +17,7 @@ class llmschema(BaseModel):
 def get_screener_url_and_ticker_symbol(state: State) -> State:
     try:
 
-        parser = PydanticOutputParser.from_response_schemas(llmschema)
+        parser = PydanticOutputParser(pydantic_object=llmschema)
         format_instructions = parser.get_format_instructions()
 
         prompt_template = ChatPromptTemplate(
