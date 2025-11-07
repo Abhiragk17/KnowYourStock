@@ -1,3 +1,5 @@
+links.txt
+
 # Python
 __pycache__/
 *.py[cod]
@@ -17,7 +19,7 @@ ENV/
 .env.*.local
 
 # Streamlit
-Streamlit_Frontend/
+Streamlit KnowYourStock/
 
 # Jupyter Notebook
 test.ipynb
