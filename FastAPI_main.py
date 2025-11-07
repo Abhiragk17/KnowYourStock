@@ -33,6 +33,10 @@ class ChatRequest(BaseModel):
 def health_check():
     return {"status": "ok"}
 
+@app.get("/")
+def HelloWorld():
+    return {"message": "Hello! Welcome"}
+
 @app.post("/langgraph")
 async def run_langgraph(req: LanggraphRequest):
     """Run the simple workflow:
