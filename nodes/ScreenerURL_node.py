@@ -1,6 +1,7 @@
 from langchain_core.prompts import ChatPromptTemplate
 from config import GEMINI_LLM as llm
-#from langchain.output_parsers import StructuredOutputParser, ResponseSchema
+from langchain.output_parsers.structured import StructuredOutputParser, ResponseSchema
+
 import sys
 from pathlib import Path
 
